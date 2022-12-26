@@ -1,0 +1,48 @@
+    {% extends 'frontend/base.html' %}
+
+    {% load static %}
+    
+    {% block title %}
+        order
+    {% endblock %}
+
+{% block content%}
+
+    <table class="table table-bordered">
+        <tr>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Email</th>
+            <th>Telephone</th>
+            <th>Company</th>
+            <th>Address1</th>
+            <th>Address2</th>
+            <th>City</th>
+            <th>Postcode</th>
+            <th>Zone_id</th>
+            <th>country_id</th>
+            <th colspan="1">Delete order</th>
+            
+        </tr>
+        {% for x in order %}
+
+            <tr>
+                <td>{{x.name}}</td>
+                <td>{{x.lastname}}</td>
+                <td>{{x.email}}</td>
+                <td>{{x.telephone}}</td>
+                <td>{{x.company}}</td>
+                <td>{{x.address_1}}</td>
+                <td>{{x.address_2}}</td>
+                <td>{{x.city}}</td>
+                <td>{{x.postcode}}</td>
+                <td>{{x.zone_id}}</td>
+                <td>{{x.country_id}}</td>
+                <td><a href="{% url 'frontend:delete_order' x.id %}" class="btn btn-primary">Delete order</a></td>
+            </tr>
+        {% endfor %}
+
+    </table>
+{% endblock %}
+    
+    

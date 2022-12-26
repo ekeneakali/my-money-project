@@ -1,0 +1,80 @@
+{% extends 'frontend/base.html' %} 
+
+{% load static %}
+
+    {% block title %}
+        Cart-page
+    {% endblock %}
+    
+    {% load cart_tag %}
+{% block content %}
+<br><br>
+
+Total Length :: {{request.session.cart|length}}
+
+Cart Detail:
+
+
+    <!--Body Content-->
+    
+    <center>
+        <a href="#" class="btn btn-primary">Your Cart</a><br><br>
+    </center>
+
+    <table class="table table-bordered">
+        <tr>
+            <th>Title</th>
+            <th>Image</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Dlelete</th>
+            <th>Increment/decrement</th>
+            <th>Total Price</th>
+        </tr>
+        {% if request.session.cart.items %}       
+        {% for key,value in request.session.cart.items %}
+
+        
+        <tr>
+            
+            <td><a href="#">{{value.name}}</a></td>
+            <td><img src="{{value.image}}" alt="img" height="100px" width="100px"></td>
+            <td><a href="#">${{value.price}}</a></td>
+            <td>{{value.quantity}}</td>
+            <td><a href="{% url 'frontend:item_clear' value.product_id %}"><i class="fa fa-trash"></i>Delete this item</a></td>
+            <td>
+                <button type="submit"><a href="{% url 'frontend:item_increment' value.product_id %}">+</a></button>
+                <button type="submit"><a href="{% url 'frontend:item_decrement' value.product_id %}">-</a>
+                </button>
+                </td>
+            <td>${{ value.price|multiply:value.quantity }}
+                <br><br>
+                <a href="{% url 'frontend:checkout' %}" class="btn btn-primary">Proceed to Checkout</a>
+
+            </td>
+            
+        
+        </tr>
+        {% endfor %}
+
+        {% else %}
+            <center>
+                <h3>your cart is empty </h3>
+            </center>
+            {% endif %}
+
+        
+
+    </table>
+    <center>
+        <p>
+            <a href="{% url 'frontend:checkout' %}" class="btn btn-primary">Proceed to Checkout</a>   <a href="{% url 'home' %}" class="btn btn-success">Continue Shopping</a><br><br>
+        </p>
+    </center>
+    
+    
+
+    <!--End Body Content-->
+    {% endblock %}
+    
+    
